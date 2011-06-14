@@ -44,13 +44,13 @@ class InfochimpsDecorator < Goliath::API
   end
 
   def fetch_trstrank result_set
-    apikey = 'flip69' # config[:infochimps_apikey]
+    apikey = config[:infochimps_apikey]
 
     multi = EM::Synchrony::Multi.new
     result_set['results'].each do |result|
       handle = escape(result['from_user'])
       url = "http://api.infochimps.com/social/network/tw/influence/trstrank?_apikey=#{apikey}&screen_name=#{handle}"
-      multi.add handle, EM::HttpRequest.new(url).get(params)
+      multi.add handle, EM::HttpRequest.new(url).aget(params)
     end
     multi.perform
 
